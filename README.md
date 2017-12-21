@@ -1,6 +1,6 @@
-# imoocmall
+# 雯丽购物城
 
-> Imooc Mall 
+>  wenliShop
 
 ## Build Setup
 
