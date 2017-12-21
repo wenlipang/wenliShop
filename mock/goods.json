@@ -1,0 +1,32 @@
+{
+  "status":"0",
+  "msg":"",
+  "result":[
+    {
+        "productId":"10001",
+        "productName":"音响",
+        "prodcutPrice":"299",
+        "productImg":"1.jpg"
+    },
+ 
+    {
+      "productId":"10003",
+      "productName":"小米6",
+      "prodcutPrice":"2499",
+      "productImg":"mi6.jpg"
+    },
+    {
+      "productId":"10005",
+      "productName":"充电宝",
+      "prodcutPrice":"249",
+      "productImg":"8.jpg"
+    },
+  
+    {
+      "productId":"10008",
+      "productName":"耳机",
+      "prodcutPrice":"29",
+      "productImg":"7.jpg"
+    }
+  ]
+}
