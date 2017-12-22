@@ -3,54 +3,54 @@
         "productId":"10001",
         "productName":"音响",
         "productPrice":299,
-        "productImg":"1.jpg"
+        "productImage":"1.jpg"
     },
     {
       "productId":"10002",
       "productName":"小米6",
       "productPrice":2499,
-      "productImg":"mi6.jpg"
+      "productImage":"mi6.jpg"
     },
     {
       "productId":"10003",
       "productName":"充电宝",
       "productPrice":249,
-      "productImg":"8.jpg"
+      "productImage":"8.jpg"
     },
     {
       "productId":"10004",
       "productName":"耳机",
       "productPrice":50,
-      "productImg":"7.jpg"
+      "productImage":"7.jpg"
     },
       {
       "productId":"10005",
       "productName":"液晶电视",
       "productPrice":5000,
-      "productImg":"10.jpg"
+      "productImage":"10.jpg"
     },
     {
       "productId":"10006",
       "productName":"小米6",
       "productPrice":3999,
-      "productImg":"2.jpg"
+      "productImage":"2.jpg"
     },
     {
       "productId":"10007",
       "productName":"充电宝",
       "productPrice":249,
-      "productImg":"3.jpg"
+      "productImage":"3.jpg"
     },
     {
       "productId":"10008",
       "productName":"耳机",
       "productPrice":50,
-      "productImg":"4.jpg"
+      "productImage":"4.jpg"
     },
       {
       "productId":"10009",
       "productName":"液晶电视",
       "productPrice":500,
-      "productImg":"5.jpg"
+      "productImage":"5.jpg"
     }
   ]

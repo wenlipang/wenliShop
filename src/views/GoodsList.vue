@@ -31,53 +31,23 @@
                 <ul>
                   <li v-for="(item,index) in goodsList">
                     <div class="pic">
-                      <a href="#"><img v-lazy="'/static/'+item.productImg " alt=""></a>
+                      <a href="#"><img v-lazy="'/static/'+item.productImage " alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{item.productName}}</div>
                       <div class="price">{{item.productPrice}}</div>
                       <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                       </div>
                     </div>
                   </li>
-               <!--    <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/2.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">1000</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/3.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">500</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/4.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">2499</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li> -->
+              
                 </ul>
+
+                <!-- 滚动加载 -->
+                <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30" class="load-more">
+                    <img src="../assets/loading-spinning-bubbles.svg" alt="" v-show="loading">
+                </div>
               </div>
             </div>
           </div>
@@ -103,7 +73,8 @@
                   sortFlag:1,//默认升序
                   page:1,
                   pageSize:8,
-
+                   busy:true,//禁用 滚动
+                   loading:false,//加载 默认不显示
                   priceFilter:[ 
                     {
                       startPrice:'0.00',
@@ -119,7 +90,7 @@
                     } ,
                     {
                       startPrice:'1000.00',
-                      endPrice:'2000.00'
+                      endPrice:'5000.00'
                     }
 
                   ],
@@ -150,22 +121,38 @@
          
           },
           methods:{
-            getGoodsList(){
+            getGoodsList(flag){
               var param={
                 page:this.page,
                 pageSize:this.pageSize,
-                sort:this.sortFlag?1:-1
+                sort:this.sortFlag?1:-1,
+                priceLevel:this.priceChecked
               };
+              this.loading=true;//接口请求之前显示
+              // 接口请求
               axios.get('/goods',{
                 params:param
               }).then((response)=>{
-                let res=response.data;
-                if(res.status=='0'){
-                  this.goodsList=res.result.list;
-                }else{
-                  this.goodsList=[];
-                }
+               let res=response.data;
+               this.loading=false;//接口请求之后关闭
+               if(res.status=='0'){
+                 if(flag){//若flag为true ：分页需要累加
+                      this.goodsList=this.goodsList.concat(res.result.list);//累加
+                       if(res.result.count==0){
+                           this.busy=true;
+                       }else{
+                         this.busy=false;
+                       }
+                 }else{
+                   this.goodsList=res.result.list;
+                   this.busy=false;
+                 }
+               }else{
+                 this.goodsList=[];
+               }
               })
+             
+
             },
             // 排序
             sortGoods(){
@@ -174,13 +161,39 @@
               this.getGoodsList();
 
             },
+               // 滚动加载要调用的方法
+            loadMore(){
+                this.busy=true;//滚到第二页之后禁止再去滚动加载
+              setTimeout(()=>{
+                this.page++;//滚动时加到第二页
+                this.getGoodsList(true);//分页需要进行累加
+
+              },5000);
+            },
+
+            // 加入购物车
+            addCart(productId){
+                axios.post("/goods/addCart",{
+                  productId:productId
+                }).then((res)=>{
+                  if(res.status==0){
+                    alert("加入购物车成功");
+                  }else{
+                    alert("msg:"+res.msg);
+                  }
+                })
+            },
             showFilterPop(){
                 this.filterBy=true;
                  this.overLayFlag=true;
             },
             setPriceFilter(index){
                 this.priceChecked=index;
+                console.log("价格",this.priceChecked)
+                this.page=1;
                 this.closePop();
+                this.getGoodsList();
+
             },
             closePop(){
                  this.filterBy=false;
@@ -188,4 +201,5 @@
             }
           }
       }
+
 </script>

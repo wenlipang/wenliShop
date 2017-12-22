@@ -30,7 +30,7 @@ var productModel=new mongoose.Schema({
 	"productId":String,
 	"productName":String,
 	"productPrice":Number,
-	"productImg":String
+	"productImage":String
 },
 {
 	versionKey:false //去除： - -v

@@ -7,6 +7,12 @@
   clear: both;
 }
 
+.load-more{
+    text-align: center;
+    height:100px;
+    line-height:100px;
+}
+
 .accessory-list > ul > li {
   float: left;
   width: 23.80952%;

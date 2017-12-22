@@ -1,3 +1,4 @@
+
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
@@ -23,22 +24,20 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8989,
+    port: 8999,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    // 代理插件  用于跨域
-    proxyTable: {
-      '/goods':{
+    proxyTable: {//代理插件,只限于开发模式
+      '/goods':{   
           target:'http://localhost:3000'
-        }
-      // },
-      // '/goods/*':{
-      //   target:'http://localhost:3000'
-      // },
-      // '/users/*':{
-      //   target:'http://localhost:3000'
-      // }
+      },
+      '/goods/*':{
+        target:'http://localhost:3000'
+      },
+      '/users/*':{
+        target:'http://localhost:3000'
+      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
